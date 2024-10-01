@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { ChildComp, ChildCompInner } from './components/ChildComp'
 import ChildComp2 from './components/ChildComp2'
+import axios from 'axios';
 
 // function App() {
 //   let num = 10;
@@ -152,60 +153,136 @@ import ChildComp2 from './components/ChildComp2'
 //   )
 // }
 
+// function App() {
+
+//   let usernameRef = useRef("");
+
+//   const [usernameState, setUsernameState] = useState("");
+//   const [usernameErr, setUsernameErr] = useState("");
+
+//   const handleImpure = (e) => {
+//     e.preventDefault();
+//     let username = document.getElementById('txtUsername').value;
+//     console.log('username', username);
+//   }
+
+//   const handleHalfImpure = () => {
+//     let username = usernameRef.current.value;
+//     console.log('username', username);
+//   }
+
+//   const handlePure = () => {
+//     console.log(usernameState);
+//     (usernameState === "")
+//       ?
+//         setUsernameErr("Please enter a username")
+//       :
+//         setUsernameErr("");
+//   }
+
+
+
+//   return (
+//     <>
+//       <h1>Form Handling</h1>
+
+//       {/* <h2>Impure Way</h2>
+
+//       <form onSubmit={handleImpure}>
+//         <input type="text" id="txtUsername" /><br />
+//         <button>Click</button>
+//       </form> */}
+
+//       {/* <h2>Half Impure Way</h2>
+
+//       <form>
+//         <input type="text" ref={usernameRef} /><br />
+//         <button type='button' onClick={handleHalfImpure}>Click</button>
+//       </form> */}
+
+//       <h2>Pure Way</h2>
+
+//       <form>
+//         <input type="text" onChange={(e) => setUsernameState(e.target.value)} />
+//         <span>{usernameErr}</span><br />
+//         <button type='button' onClick={handlePure}>Click</button>
+//       </form>
+//     </>
+//   )
+// }
+
 function App() {
 
-  let usernameRef = useRef("");
+  const [count, setCount] = useState(0);
+  const [timer, setTimer] = useState(0);
 
-  const [usernameState, setUsernameState] = useState("");
-  const [usernameErr, setUsernameErr] = useState("");
+  const [fact, setFact] = useState("");
 
-  const handleImpure = (e) => {
-    e.preventDefault();
-    let username = document.getElementById('txtUsername').value;
-    console.log('username', username);
+  // useEffect(() => {
+  //   console.log("useEffect() called");
+  // }, [count]);
+
+  // useEffect(() => {
+  //   setCount(count+1);
+  // }, [timer]);
+
+  const fetchData = () => {
+    axios.get("https://catfact.ninja/fact")
+      .then(res => {
+        console.log(res)
+        setFact(res?.data?.fact)
+      });
+
+    // fetch("", {
+    //   method: "POST",
+    //   body: JSON.stringify({"username": username}),
+    // });
+    // fetch("https://catfact.ninja/fact", {
+    //   method: "POST"
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data);
+    //     // setFact(data.fact);
+    //     // if(data && data.fact)
+    //     //   setFact(data.fact);
+
+    //     // setFact(data?.fact);
+    //   })
   }
 
-  const handleHalfImpure = () => {
-    let username = usernameRef.current.value;
-    console.log('username', username);
-  }
+  let interval;
 
-  const handlePure = () => {
-    console.log(usernameState);
-    (usernameState === "")
-      ?
-        setUsernameErr("Please enter a username")
-      :
-        setUsernameErr("");
-  }
+  useEffect(() => {
+    console.log("useEffect is called");
+    // interval = setInterval(fetchData, 5000);
+    // // fetchData();
 
+    // return () => clearInterval(interval);
+    fetchData();
+  },[]);
 
+  // useEffect(() => {
+  //   console.log("useEffect is called");
+  //   // interval = setInterval(fetchData, 5000);
+  //   // // fetchData();
+
+  //   // return () => clearInterval(interval);
+  //   fetchData();
+  // },[]);
+
+  console.log("App is called");
 
   return (
     <>
-      <h1>Form Handling</h1>
+      <h1>useEffect and API Calls</h1>
+      <p>Count: {count}</p>
+      {/* <button onClick={() => setCount(count+1)}>Counter</button> */}
 
-      {/* <h2>Impure Way</h2>
+      {/* <p>Timer: {timer}</p>
+      <button onClick={() => setTimer(timer+1)}>Timer</button> */}
 
-      <form onSubmit={handleImpure}>
-        <input type="text" id="txtUsername" /><br />
-        <button>Click</button>
-      </form> */}
-
-      {/* <h2>Half Impure Way</h2>
-
-      <form>
-        <input type="text" ref={usernameRef} /><br />
-        <button type='button' onClick={handleHalfImpure}>Click</button>
-      </form> */}
-
-      <h2>Pure Way</h2>
-
-      <form>
-        <input type="text" onChange={(e) => setUsernameState(e.target.value)} />
-        <span>{usernameErr}</span><br />
-        <button type='button' onClick={handlePure}>Click</button>
-      </form>
+      <p>Fact: {fact}</p>
     </>
   )
 }
