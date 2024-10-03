@@ -3,6 +3,14 @@ import './App.css'
 import { ChildComp, ChildCompInner } from './components/ChildComp'
 import ChildComp2 from './components/ChildComp2'
 import axios from 'axios';
+import UniversitiesComp from './components/UniversitiesComp';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import PortfolioPage from './pages/PortfolioPage';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import MenuComp from './components/MenuComp';
 
 // function App() {
 //   let num = 10;
@@ -211,78 +219,149 @@ import axios from 'axios';
 //   )
 // }
 
+// function App() {
+
+//   const [count, setCount] = useState(0);
+//   const [timer, setTimer] = useState(0);
+
+//   const [fact, setFact] = useState("");
+
+//   // useEffect(() => {
+//   //   console.log("useEffect() called");
+//   // }, [count]);
+
+//   // useEffect(() => {
+//   //   setCount(count+1);
+//   // }, [timer]);
+
+//   const fetchData = () => {
+//     axios.get("https://catfact.ninja/fact")
+//       .then(res => {
+//         console.log(res)
+//         setFact(res?.data?.fact)
+//       });
+
+//     // fetch("", {
+//     //   method: "POST",
+//     //   body: JSON.stringify({"username": username}),
+//     // });
+//     // fetch("https://catfact.ninja/fact", {
+//     //   method: "POST"
+//     // })
+//     //   .then(res => res.json())
+//     //   .then(data => {
+//     //     console.log(data);
+//     //     // setFact(data.fact);
+//     //     // if(data && data.fact)
+//     //     //   setFact(data.fact);
+
+//     //     // setFact(data?.fact);
+//     //   })
+//   }
+
+//   let interval;
+
+//   useEffect(() => {
+//     console.log("useEffect is called");
+//     // interval = setInterval(fetchData, 5000);
+//     // // fetchData();
+
+//     // return () => clearInterval(interval);
+//     fetchData();
+//   },[]);
+
+//   // useEffect(() => {
+//   //   console.log("useEffect is called");
+//   //   // interval = setInterval(fetchData, 5000);
+//   //   // // fetchData();
+
+//   //   // return () => clearInterval(interval);
+//   //   fetchData();
+//   // },[]);
+
+//   console.log("App is called");
+
+//   return (
+//     <>
+//       <h1>useEffect and API Calls</h1>
+//       <p>Count: {count}</p>
+//       {/* <button onClick={() => setCount(count+1)}>Counter</button> */}
+
+//       {/* <p>Timer: {timer}</p>
+//       <button onClick={() => setTimer(timer+1)}>Timer</button> */}
+
+//       <p>Fact: {fact}</p>
+//     </>
+//   )
+// }
+
+// function App() {
+//   const [country, setCountry] = useState("");
+//   const [universitiesList, setUniversitiesList] = useState([]);
+
+//   const fetchData = () => {
+//     // axios.get(`http://universities.hipolabs.com/search?country=${country}`)
+//     //   .then(res => {
+//     //     // console.log(res);
+//     //     if(res.status === 200 && universitiesList.toString() !== res.data.toString() ) 
+//     //       setUniversitiesList(res?.data)
+//     //   })
+
+//     let data = {
+//       "name": "test post",
+//       "author": "author1"
+//     }
+//     axios.put('https://jsonplaceholder.typicode.com/posts', data)
+//       .then(res => {
+//         console.log(res);
+//       })
+//   }
+
+//   // console.log(country);
+//   console.log("App is called");
+
+//   return (
+//     <>
+//       <h1>Universities List</h1>
+//       <div>
+//         <input type="text" onChange={(e) => setCountry(e.target.value)} /><br />
+//         <button onClick={fetchData}>Search Universities</button>
+//       </div>
+
+//       {/* <UniversitiesComp data={universitiesList} /> */}
+
+//       <table>
+//                 <tbody>
+
+//             {
+//                 universitiesList?.map((v, i) => {
+//                     return (
+//                         <tr key={i}>
+//                             <td>{v.name}</td>
+//                             <td>{v.web_pages[0]}</td>
+//                         </tr>
+//                     )
+//                 })
+//             }
+//                 </tbody>
+//             </table>
+
+//     </>
+//   )
+// }
+
 function App() {
-
-  const [count, setCount] = useState(0);
-  const [timer, setTimer] = useState(0);
-
-  const [fact, setFact] = useState("");
-
-  // useEffect(() => {
-  //   console.log("useEffect() called");
-  // }, [count]);
-
-  // useEffect(() => {
-  //   setCount(count+1);
-  // }, [timer]);
-
-  const fetchData = () => {
-    axios.get("https://catfact.ninja/fact")
-      .then(res => {
-        console.log(res)
-        setFact(res?.data?.fact)
-      });
-
-    // fetch("", {
-    //   method: "POST",
-    //   body: JSON.stringify({"username": username}),
-    // });
-    // fetch("https://catfact.ninja/fact", {
-    //   method: "POST"
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     // setFact(data.fact);
-    //     // if(data && data.fact)
-    //     //   setFact(data.fact);
-
-    //     // setFact(data?.fact);
-    //   })
-  }
-
-  let interval;
-
-  useEffect(() => {
-    console.log("useEffect is called");
-    // interval = setInterval(fetchData, 5000);
-    // // fetchData();
-
-    // return () => clearInterval(interval);
-    fetchData();
-  },[]);
-
-  // useEffect(() => {
-  //   console.log("useEffect is called");
-  //   // interval = setInterval(fetchData, 5000);
-  //   // // fetchData();
-
-  //   // return () => clearInterval(interval);
-  //   fetchData();
-  // },[]);
-
-  console.log("App is called");
-
   return (
     <>
-      <h1>useEffect and API Calls</h1>
-      <p>Count: {count}</p>
-      {/* <button onClick={() => setCount(count+1)}>Counter</button> */}
-
-      {/* <p>Timer: {timer}</p>
-      <button onClick={() => setTimer(timer+1)}>Timer</button> */}
-
-      <p>Fact: {fact}</p>
+      <BrowserRouter basename='/saveetha-batch-1-august-2024-reactjs'>
+        <MenuComp />
+        <Routes>
+          <Route path='/' element={<HomePage />}></Route>
+          <Route path='/about' element={<AboutPage />}></Route>
+          <Route path='/contact' element={<ContactPage />}></Route>
+          <Route path='/portfolio' element={<PortfolioPage />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
